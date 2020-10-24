@@ -69,7 +69,8 @@ def elegir_opcion():
                                                                 
         except:
                 print("ERROR ==> Ingrese un numero entero\n")
-        print('ERROR ==> Ingrese un numero de la lista')
+        if eleccion < 1 or eleccion > 4:
+            print('ERROR ==> Ingrese un numero de la lista')
     return eleccion
 
 def elegir_nombre():
