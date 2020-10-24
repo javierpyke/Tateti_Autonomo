@@ -219,15 +219,12 @@ class Computadora_nivel3(Jugador):
     def defender(self,tablero):
         coor = self.defender_filas(tablero)
         if coor != False:
-            print("ok1")
             return coor
         coor = self.defender_columnas(tablero)
         if coor != False:
-            print("ok2")
             return coor
         coor = self.defender_diagonales(tablero)
         if coor != False:
-            print("ok3")
             return coor
         return False
     
