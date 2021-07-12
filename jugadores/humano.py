@@ -24,6 +24,7 @@ class Humano(Jugador):
 
     def jugar(self, tablero):
         salir = False
+        #Pregunta hasta poner una coordenada vacia
         while not salir:
             columna = leerInt("Columna: ", 1, tablero.cc)
             fila = leerInt("Fila: ", 1, tablero.cf)            
