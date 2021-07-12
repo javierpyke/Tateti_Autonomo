@@ -1,10 +1,15 @@
-from tablero import Coordenada,Ficha,Tablero,CRUZ,CIRC,NADA
-import jugadores
+from tablero import Tablero
+from ficha import Ficha,CRUZ,CIRC,NADA
+from coordenada import Coordenada
+from jugadores.computadora_dificil import ComputadoraDificil
+from jugadores.computadora_intermedio import ComputadoraIntermedio
+from jugadores.computadora_facil import ComputadoraFacil
+from jugadores.humano import Humano
+
 import random as R
 
 class Tateti:
-    def __init__(self, jug1, jug2):
-        
+    def __init__(self, jug1, jug2):        
         self.jug1 = jug1
         self.jug2 = jug2
         self.tablero = Tablero()
@@ -29,7 +34,7 @@ class Tateti:
             print("Ganador: " + str(jugAux))
             return jugAux
         else:
-            print("Empate!!!!!!!")
+            print("EMPATE")
         return False
 
     def elOtroJugador(self, unJugador):
@@ -61,9 +66,9 @@ def elegir_opcion():
     while eleccion < 1 or eleccion > 4:
         try:
             eleccion = int(input("""¿Que tipo de jugador quiere ser:
-                [1]: Computadora nivel 1
-                [2]: Computadora nivel 2
-                [3]: Computadora nivel 3
+                [1]: Computadora facil
+                [2]: Computadora intermedio
+                [3]: Computadora dificl
                 [4]: Humano
                 Ingrese una opcion: """))
                                                                 
@@ -92,19 +97,48 @@ def elegir_ficha(jug1):
             return CIRC
 
 def elegir_jugador(jug1=None):
-    lst_jugadores = [jugadores.Computadora_nivel1,jugadores.Computadora_nivel2,jugadores.Computadora_nivel3,jugadores.Humano]
+    lst_jugadores = [ComputadoraFacil,ComputadoraIntermedio,ComputadoraDificil,Humano]
     opcion = elegir_opcion()
     nombre = elegir_nombre()
     ficha = elegir_ficha(jug1)
     return lst_jugadores[opcion-1](nombre,ficha)
 
 def main():
-    jug1 = elegir_jugador()
+    '''jug1 = elegir_jugador()
     print(jug1)
     jug2 = elegir_jugador(jug1)
-    print(jug2)
-    juego = Tateti(jug1, jug2)
-    juego.jugarTateti()
+    print(jug2)'''
+
+    jug1 = ComputadoraIntermedio("Xompu 2",CIRC)
+    jug2 = ComputadoraDificil("Xompu 3",CRUZ)
+    
+
+    puntos1 = 0
+    puntos2 = 0
+
+    for x in range(50):
+        juego = Tateti(jug1, jug2)
+        ganador = juego.jugarTateti()
+        if ganador == jug1:
+            puntos1 +=1
+        elif ganador == jug2:
+            puntos2 += 1
+    print("{}: {}".format(jug1.nombre,puntos1))
+    print("{}: {}".format(jug2.nombre,puntos2))
+
+    jug1 = ComputadoraFacil("Xompu 1",CIRC)
+    jug2 = ComputadoraDificil("Xompu 3",CRUZ)
+
+    for x in range(50):
+        juego = Tateti(jug1, jug2)
+        ganador = juego.jugarTateti()
+        if ganador == jug1:
+            puntos1 +=1
+        elif ganador == jug2:
+            puntos2 += 1
+    print("{}: {}".format(jug1.nombre,puntos1))
+    print("{}: {}".format(jug2.nombre,puntos2))
+
 
 if __name__ == '__main__':
     main()
