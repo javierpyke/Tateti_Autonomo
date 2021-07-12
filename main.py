@@ -5,61 +5,8 @@ from jugadores.computadora_dificil import ComputadoraDificil
 from jugadores.computadora_intermedio import ComputadoraIntermedio
 from jugadores.computadora_facil import ComputadoraFacil
 from jugadores.humano import Humano
-
+from tateti import Tateti
 import random as R
-
-class Tateti:
-    def __init__(self, jug1, jug2):        
-        self.jug1 = jug1
-        self.jug2 = jug2
-        self.tablero = Tablero()
-
-    def jugarTateti(self):
-        if R.randint(0, 1) == 0:
-            jugAux = self.jug1
-        else:
-            jugAux = self.jug2
-        ganar = False
-        print(str(self.tablero))
-        while not ganar and self.tablero.existe(NADA):
-            print("JUEGA: " + str(jugAux))
-            coor = jugAux.jugar(self.tablero)
-            self.tablero.poner(coor.fila, coor.columna, jugAux.ficha)
-            print(str(self.tablero))
-            if self.esTateti(jugAux.ficha):
-                ganar = True
-            else:
-                jugAux = self.elOtroJugador(jugAux) 
-        if ganar:
-            print("Ganador: " + str(jugAux))
-            return jugAux
-        else:
-            print("EMPATE")
-        return False
-
-    def elOtroJugador(self, unJugador):
-        
-        if unJugador == self.jug2:
-            return self.jug1
-        return self.jug2
-
-    def esTateti(self, ficha):
-        
-        for fila in range(self.tablero.cf):
-            if self.tablero.filaIgual(fila, ficha):
-                return True
-        
-        for columna in range(self.tablero.cc):
-            if self.tablero.columnaIgual(columna, ficha):
-                return True
-        
-        if self.tablero.digonalIgual(ficha):
-            return True
-
-        if self.tablero.digonalSecIgual(ficha):
-            return True
-        
-        return  False
 
 def elegir_opcion():
     eleccion=0
@@ -68,7 +15,7 @@ def elegir_opcion():
             eleccion = int(input("""¿Que tipo de jugador quiere ser:
                 [1]: Computadora facil
                 [2]: Computadora intermedio
-                [3]: Computadora dificl
+                [3]: Computadora dificil
                 [4]: Humano
                 Ingrese una opcion: """))
                                                                 
@@ -98,7 +45,7 @@ def elegir_ficha(jug1):
 
 def elegir_jugador(jug1=None):
     lst_jugadores = [ComputadoraFacil,ComputadoraIntermedio,ComputadoraDificil,Humano]
-    
+    nombre=""
     opcion = elegir_opcion()
     if opcion == 4:
         nombre = elegir_nombre()

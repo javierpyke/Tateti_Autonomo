@@ -18,38 +18,39 @@ class ComputadoraIntermedio(Jugador):
     
     
     def jugar(self, tablero):
-        #ATACAR (REMATE)
+        #Se fija si puede rematar el partido
         for f in range(tablero.cf):
             for c in range(tablero.cc):
                 if tablero.ver(f, c) == NADA:
                     tablero.poner(f, c, self.ficha)
                     if self.esTateti(tablero, self.ficha):
                         tablero.poner(f, c, NADA)
-                        return Coordenada(f, c)#ACA GANO!!!
+                        return Coordenada(f, c)
                     else:
                         tablero.poner(f, c, NADA)
 
-        #TOMO LA FICHA DEL OPONENTE
+        #Toma la ficha del oponente
         if self.ficha == CIRC:
             otra = CRUZ
         else:
             otra = CIRC        
         
-        #DEFENDER
+        #Se fija si puede perder el partido en la siguiente mano
         for f in range(tablero.cf):
             for c in range(tablero.cc):
                 if tablero.ver(f, c) == NADA:
                     tablero.poner(f, c, otra)
                     if self.esTateti(tablero, otra):
                         tablero.poner(f, c, NADA)
-                        return Coordenada(f, c)#TAPO LA POSIBILIDAD DE QUE GANE
+                        # Tapa la posibilidad del oponente
+                        return Coordenada(f, c)
                     else:
                         tablero.poner(f, c, NADA)
+
+        #Juga random
         salir = False
         fila = 0
-        columna = 0
-
-        #JUEGA RANDOM
+        columna = 0        
         while not salir:
             fila = R.randint(0, tablero.cf-1)
             columna = R.randint(0, tablero.cc-1)
