@@ -98,46 +98,21 @@ def elegir_ficha(jug1):
 
 def elegir_jugador(jug1=None):
     lst_jugadores = [ComputadoraFacil,ComputadoraIntermedio,ComputadoraDificil,Humano]
+    
     opcion = elegir_opcion()
-    nombre = elegir_nombre()
+    if opcion == 4:
+        nombre = elegir_nombre()
     ficha = elegir_ficha(jug1)
-    return lst_jugadores[opcion-1](nombre,ficha)
+    lst_nombres = ["Computadora Facil","Computadora Intermedio","Computadora Dicifil",nombre]
+    return lst_jugadores[opcion-1](lst_nombres[opcion-1],ficha)
 
 def main():
-    '''jug1 = elegir_jugador()
+    jug1 = elegir_jugador()
     print(jug1)
     jug2 = elegir_jugador(jug1)
-    print(jug2)'''
-
-    jug1 = ComputadoraIntermedio("Xompu 2",CIRC)
-    jug2 = ComputadoraDificil("Xompu 3",CRUZ)
-    
-
-    puntos1 = 0
-    puntos2 = 0
-
-    for x in range(50):
-        juego = Tateti(jug1, jug2)
-        ganador = juego.jugarTateti()
-        if ganador == jug1:
-            puntos1 +=1
-        elif ganador == jug2:
-            puntos2 += 1
-    print("{}: {}".format(jug1.nombre,puntos1))
-    print("{}: {}".format(jug2.nombre,puntos2))
-
-    jug1 = ComputadoraFacil("Xompu 1",CIRC)
-    jug2 = ComputadoraDificil("Xompu 3",CRUZ)
-
-    for x in range(50):
-        juego = Tateti(jug1, jug2)
-        ganador = juego.jugarTateti()
-        if ganador == jug1:
-            puntos1 +=1
-        elif ganador == jug2:
-            puntos2 += 1
-    print("{}: {}".format(jug1.nombre,puntos1))
-    print("{}: {}".format(jug2.nombre,puntos2))
+    print(jug2)
+    juego = Tateti(jug1, jug2)
+    juego.jugarTateti()  
 
 
 if __name__ == '__main__':
